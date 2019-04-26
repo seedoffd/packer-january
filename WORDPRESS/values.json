@@ -1,5 +1,7 @@
 {
     "wordpress_version": "5.1",
-    "instance_type": "n5.large"
+    "instance_type": "n5.large",
+    "ami": "ami-0de53d8956e8dcf80",
+    
 
 }
