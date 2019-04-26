@@ -1,32 +1,38 @@
 {
-
-    "builders": [{
-      "type": "amazon-ebs",
-      "region": "us-east-1",
-      "source_ami": "ami-0de53d8956e8dcf80",
-      "instance_type": "t2.micro",
-      "ssh_username": "ec2-user",
-      "ami_name": "updated_ami {{timestamp}}"
-    }],
-    "provisioners": [{
-        "type": "shell",
-        "inline": [
-            "sudo yum update -y",
-            "sudo yum install php php-mysql -y",
-            "sudo yum install mysql mariadb-server httpd -y",
-            "yum install wget -y",
-            "sudo wget https://wordpress.org/latest.zip",
-            "sudo unzip latest.zip",
-            "sudo rsync -avP ~/wordpress/ /var/www/html/",
-            "sudo chown -R apache:apache /var/www/htmal/*",
-            "sudo systemctl enable httpd"
-              ]
-           },
-           { 
-        "type": "file",
-        "source": "test_file",
-        "destination": "/tmp/test_file"
-            }
-    ]   
-    
-    }
+    "variables": {
+      "instance_type": "",
+      "wordpress_version": "",
+      "ami": "",
+      "region": "",
+      "ssh_username": ""
+     },
+     "builders": [{
+       "type": "amazon-ebs",
+       "region": "{{user `region`}}",
+       "source_ami": "{{user `ami`}}",
+       "instance_type": "{{user `instance_type`}}",
+       "ssh_username": "{{user `ssh_username`}}",
+       "ami_name": "wordpress-{{user `wordpress_version`}}"
+     }],
+     "provisioners": [
+         {
+         "type": "shell",
+         "inline": [
+           "sudo yum update -y",
+           "sudo yum install php unzip php-mysql -y",
+           "sudo yum install mysql mariadb-server httpd -y",
+           "sudo yum install wget -y",
+           "sudo wget https://wordpress.org/wordpress-{{user `wordpress_version`}}.zip",
+           "sudo unzip  wordpress-{{user `wordpress_version`}}.zip",
+           "sudo rsync -avP ~/wordpress/ /var/www/html/",
+           "sudo chown -R apache:apache /var/www/html/*",
+           "sudo systemctl enable httpd"
+             ]
+          }, 
+         {
+         "type": "file",
+         "source": "test_file",
+         "destination": "/tmp/test_file"
+         }
+     ]
+ }

@@ -1,24 +1,22 @@
-
-    {
-
-        "builders": [{
-          "type": "amazon-ebs",
-          "region": "us-east-1",
-          "source_ami": "ami-0de53d8956e8dcf80",
-          "instance_type": "t2.micro",
-          "ssh_username": "ec2-user",
-          "ami_name": "updated_ami {{timestamp}}"
-        }],
-        "provisioners": [{
-            "type": "shell",
-            "inlime": [
-                "sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo"
-                "sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key"
-                "sudo yum install jenkins -y"
-                "sudo yum install java  -y"
-                "sudo yum install java-1.8.0-openjdk  -y"
-                "sudo systemctl enable jenkins"
-    
-              ]
-        }]
-      }
+{
+    "builders": [{
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-0de53d8956e8dcf80",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ami_name": "jenkins-{{timestamp}}"
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+          "sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo",
+          "sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key",
+          "sudo yum install jenkins -y",
+          "sudo yum install java  -y ",
+          "sudo yum install java-1.8.0-openjdk  -y ",
+          "sudo systemctl enable jenkins"
+        ]
+    }]
+}
+  
