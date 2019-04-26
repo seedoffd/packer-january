@@ -1,9 +1,9 @@
 {
     "variables": {
       "wordpress_version": "",
-      "instance_type": ""
+      "instance_type": "",
+      "wordpress_version": ""
     },
-
     "builders": [{
       "type": "amazon-ebs",
       "region": "us-east-1",
@@ -30,7 +30,7 @@
         "type": "file",
         "source": "test_file",
         "destination": "/tmp/test_file"
-            }
+        }
     ]   
     
-    }
+}
