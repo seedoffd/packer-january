@@ -1,4 +1,8 @@
 {
+    "variables": {
+      "wordpress_version": "",
+      "instance_type": ""
+    },
 
     "builders": [{
       "type": "amazon-ebs",
@@ -15,7 +19,7 @@
             "sudo yum install php php-mysql -y",
             "sudo yum install mysql mariadb-server httpd -y",
             "yum install wget -y",
-            "sudo wget https://wordpress.org/latest.zip",
+            "sudo wget https://wordpress.org/{{wordpress_version}}.zip",
             "sudo unzip latest.zip",
             "sudo rsync -avP ~/wordpress/ /var/www/html/",
             "sudo chown -R apache:apache /var/www/htmal/*",
