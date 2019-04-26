@@ -18,12 +18,15 @@
             "sudo wget https://wordpress.org/latest.zip",
             "sudo unzip latest.zip",
             "sudo rsync -avP ~/wordpress/ /var/www/html/",
-            "sudo chown -R apache:apache /var/www/htmal/*"
-        ],
+            "sudo chown -R apache:apache /var/www/htmal/*",
+            "sudo systemctl enable httpd"
+              ]
+           },
+           { 
         "type": "file",
-        "source": "type_file",
+        "source": "test_file",
         "destination": "/tmp/test_file"
-    
-    }]   
+            }
+    ]   
     
     }
