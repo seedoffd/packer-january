@@ -1,16 +1,12 @@
 {
-    "variables": {
-      "wordpress_version": "",
-      "instance_type": "",
-      "wordpress_version": ""
-    },
+
     "builders": [{
       "type": "amazon-ebs",
       "region": "us-east-1",
       "source_ami": "ami-0de53d8956e8dcf80",
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
-      "ami_name": "wordpress-{{user 'wordpress_version'}}"
+      "ami_name": "updated_ami {{timestamp}}"
     }],
     "provisioners": [{
         "type": "shell",
@@ -19,7 +15,7 @@
             "sudo yum install php php-mysql -y",
             "sudo yum install mysql mariadb-server httpd -y",
             "yum install wget -y",
-            "sudo wget https://wordpress.org/{{wordpress_version}}.zip",
+            "sudo wget https://wordpress.org/latest.zip",
             "sudo unzip latest.zip",
             "sudo rsync -avP ~/wordpress/ /var/www/html/",
             "sudo chown -R apache:apache /var/www/htmal/*",
@@ -30,7 +26,7 @@
         "type": "file",
         "source": "test_file",
         "destination": "/tmp/test_file"
-        }
+            }
     ]   
     
-}
+    }
